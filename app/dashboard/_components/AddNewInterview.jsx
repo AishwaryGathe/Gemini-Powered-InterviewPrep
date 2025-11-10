@@ -41,8 +41,7 @@ const AddNewInterview = () => {
   Job Positions: ${jobPosition}, 
   Job Description: ${jobDesc}, 
   Years of Experience: ${jobExperience}, 
-  Based on this information, please provide `+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+` interview questions with answers in JSON format, ensuring "Question" and "Answer" are fields in the JSON.
-`;
+  Based on this information, please provide `+ process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT + ` interview questions with answers in JSON format, ensuring "Question" and "Answer" are fields in the JSON.`;
 
     const result = await chatSession.sendMessage(InputPrompt);
     const MockJsonResp = result.response
@@ -67,7 +66,7 @@ const AddNewInterview = () => {
           createdAt: moment().format("YYYY-MM-DD"),
         })
         .returning({ mockId: MockInterview.mockId });
-        
+
       console.log("Inserted ID:", resp);
 
       if (resp) {
@@ -146,7 +145,7 @@ const AddNewInterview = () => {
                     {loading ? (
                       <>
                         <LoaderCircle className="animate-spin" />
-                        Generating From AI
+                        Generating Question
                       </>
                     ) : (
                       "Start Interview"

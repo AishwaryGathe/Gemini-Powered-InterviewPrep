@@ -48,7 +48,7 @@ const RecordAnswerSection = ({
       };
 
       mediaRecorderRef.current.onstop = async () => {
-        const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+        const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" });
         await transcribeAudio(audioBlob);
       };
 
@@ -56,7 +56,9 @@ const RecordAnswerSection = ({
       setIsRecording(true);
     } catch (error) {
       console.error("Error starting recording:", error);
-      toast("Error starting recording. Please check your microphone permissions.");
+      toast(
+        "Error starting recording. Please check your microphone permissions."
+      );
     }
   };
 
@@ -70,14 +72,16 @@ const RecordAnswerSection = ({
   const transcribeAudio = async (audioBlob) => {
     try {
       setLoading(true);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.5-flash-lite",
+      });
+
       // Convert audio blob to base64
       const reader = new FileReader();
       reader.readAsDataURL(audioBlob);
       reader.onloadend = async () => {
-        const base64Audio = reader.result.split(',')[1];
-        
+        const base64Audio = reader.result.split(",")[1];
+
         const result = await model.generateContent([
           "Transcribe the following audio:",
           { inlineData: { data: base64Audio, mimeType: "audio/webm" } },
@@ -97,14 +101,41 @@ const RecordAnswerSection = ({
   const updateUserAnswer = async () => {
     try {
       setLoading(true);
-      const feedbackPrompt =
-        "Question:" +
-        mockInterviewQuestion[activeQuestionIndex]?.Question +
-        ", User Answer:" +
-        userAnswer +
-        " , Depends on question and user answer for given interview question" +
-        " please give us rating for answer and feedback as area of improvement if any " +
-        "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
+      const feedbackPrompt = `Evaluate the following interview response and rate it strictly based on quality, accuracy, and completeness.
+
+Question: ${mockInterviewQuestion[activeQuestionIndex]?.Question}
+User Answer: ${userAnswer}
+
+Follow this exact evaluation process:
+1. Compare the user's answer to the expected correct answer.
+2. Judge its **clarity**, **technical accuracy**, and **depth**.
+3. Rate the answer strictly on a scale of 1 to 10:
+   - 1–3 = Very poor or irrelevant answer
+   - 4–6 = Partial understanding but missing key details
+   - 7–8 = Good and mostly correct, minor issues
+   - 9–10 = Excellent and complete
+4. Provide short constructive feedback (1–3 lines).
+
+Return **only valid JSON** in this format:
+{"rating": (number 1–10), "feedback": "your feedback here"}`;
+      //     const feedbackPrompt =
+      // "Question: " +
+      // mockInterviewQuestion[activeQuestionIndex]?.Question +
+      // ", User Answer: " +
+      // userAnswer +
+      // ". Based on the question and the user's answer, provide feedback in **strict JSON** format. " +
+      // "The JSON must have exactly two fields: " +
+      // "`rating` (a number between 1 and 10) and `feedback` (a short string of 2-3 sentences). " +
+      // "Example: {\"rating\": 7, \"feedback\": \"The answer was clear but missed key points.\"} " +
+      // "Only output valid JSON, nothing else.";
+      // const feedbackPrompt =
+      //   "Question:" +
+      //   mockInterviewQuestion[activeQuestionIndex]?.Question +
+      //   ", User Answer:" +
+      //   userAnswer +
+      //   " , Depends on question and user answer for given interview question" +
+      //   " please give us rating for answer and feedback as area of improvement if any " +
+      //   "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
 
       const result = await chatSession.sendMessage(feedbackPrompt);
 
@@ -154,7 +185,12 @@ const RecordAnswerSection = ({
             style={{ height: 250, width: "100%", zIndex: 10 }}
           />
         ) : (
-          <Image src={"/camera.jpg"} width={200} height={200} alt="Camera placeholder" />
+          <Image
+            src={"/camera.jpg"}
+            width={200}
+            height={200}
+            alt="Camera placeholder"
+          />
         )}
       </div>
       <div className="md:flex mt-4 md:mt-8 md:gap-5">
@@ -189,23 +225,6 @@ const RecordAnswerSection = ({
 };
 
 export default RecordAnswerSection;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // "use client";
 // import { Button } from "@/components/ui/button";

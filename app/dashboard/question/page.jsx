@@ -10,10 +10,11 @@ const Questions = () => {
       <h2 className="text-gray-500" >Comprehensive Question Preparation with AI</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 my-5" >
-        <AddQuestions/>
+        <AddQuestions />
       </div>
-
-      <QuestionList/>
+      <div className="grid grid-cols-1 md:grid-cols-3 my-5">
+        <QuestionList />
+      </div>
     </div>
   );
 };
