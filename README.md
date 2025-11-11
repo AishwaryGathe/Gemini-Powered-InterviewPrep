@@ -52,9 +52,9 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 ## Team Members
 1. Aishwary Gathe
 2. Animesh Murai
-3. Nidhi Manyam
-4. Sarvesh Dhok
-5. Submit a pull request to the main repository.
+3. 
+
+### Submit a pull request to the main repository.
 
 
 ## Support
