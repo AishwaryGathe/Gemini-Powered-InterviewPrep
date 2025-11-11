@@ -17,10 +17,10 @@ To get started with the AI-Powered Mock Interview Platform, follow these steps:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/modamaan/Ai-mock-Interview.git
+   git clone https://github.com/modamaan/Ai-mock-Interview.git](https://github.com/AishwaryGathe/Gemini-Powered-InterviewPrep.git
 2. Navigate to the project directory:
    ```bash
-   cd ai-mock-interview
+   cd Gemini-Powered-InterviewPrep
 3. Install dependencies by running: `npm install` or `yarn install`
 4. Start the Server `npm run dev` or `yarn dev`
 5. Access the Application: Open your browser and go to http://localhost:3000 to access the application.
