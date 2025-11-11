@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Gemini Interviewer",
-  description: "Created by Group No.4",
+  description: "Where AI Turns Interview Prep into Job Offers.",
 };
 
 export default function RootLayout({ children }) {
